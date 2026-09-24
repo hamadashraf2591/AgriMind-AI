@@ -1,0 +1,264 @@
+﻿<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AgriMind AI · Smart Farming Intelligence</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<link rel="stylesheet" href="/static/css/style.css">
+<link rel="stylesheet" href="/static/css/website.css">
+<link rel="stylesheet" href="/static/css/auth.css">
+<link rel="stylesheet" href="/static/css/developer.css">
+</head>
+<body>
+
+<aside class="sidebar" id="sidebar">
+  <div class="brand"><span class="logo">🌾</span><div><b>AgriMind AI</b><small>Smart Farming · v2.0 PRO</small></div></div>
+  <nav>
+    <a class="nav active" data-page="dashboard"><i>📊</i><span>Crop Analysis</span></a>
+    <a class="nav" data-page="weather"><i>🌦️</i><span>Weather</span></a>
+    <a class="nav" data-page="advisor"><i>🌱</i><span>Crop Advisor</span></a>
+    <a class="nav" data-page="fertilizer"><i>🧪</i><span>Fertilizer Calculator</span></a>
+    <a class="nav" data-page="history"><i>🗂️</i><span>History</span></a>
+    <a class="nav" data-page="library"><i>📚</i><span>Disease Library</span></a>
+    <a class="nav" data-page="about"><i>🤖</i><span>AI Models</span></a>
+  </nav>
+  <div class="side-foot">4 ML Models · Live Weather<br>Made with 💚 for farmers</div>
+</aside>
+
+<div class="main">
+  <header class="topbar">
+    <button id="menuBtn" class="icon-btn mobile-only">☰</button>
+    <div class="title"><h1 id="pageTitle">Crop Analysis</h1><p id="pageSub">Upload a leaf image and field data for a complete AI diagnosis</p></div>
+    <div class="top-right">
+      <span class="status"><i></i>System Online</span>
+      <span id="clock" class="clock"></span>
+      <button id="themeBtn" class="icon-btn" title="Toggle theme">☀️</button>
+    </div>
+  </header>
+
+  <!-- ===================== DASHBOARD ===================== -->
+  <section class="page active" id="page-dashboard">
+    <div class="kpi-strip">
+      <div class="mini"><span>🧾</span><div><small>Total Analyses</small><b id="sTotal">0</b></div></div>
+      <div class="mini"><span>💚</span><div><small>Avg Crop Health</small><b id="sHealth">0%</b></div></div>
+      <div class="mini"><span>🦠</span><div><small>Top Threat</small><b id="sThreat">-</b></div></div>
+      <div class="mini"><span>💰</span><div><small>Est. Revenue</small><b id="sRevenue">Rs 0</b></div></div>
+    </div>
+
+    <form id="analyzeForm" class="grid-2">
+      <div class="card">
+        <h2>📷 Upload Crop Image</h2>
+        <div class="drop" id="drop">
+          <input type="file" id="file" name="image" accept="image/*" hidden>
+          <img id="preview" alt="">
+          <div class="drop-empty">
+            <div class="drop-icon">🌱</div>
+            <p><b>Click to upload</b> or drag & drop</p>
+            <small>JPG, PNG, WEBP · Max 10MB</small>
+          </div>
+        </div>
+        <p id="fileInfo" class="muted center"></p>
+        <div class="presets">
+          <span class="muted">Quick presets:</span>
+          <button type="button" class="chip" data-preset="wheat">🌾 Punjab Wheat</button>
+          <button type="button" class="chip" data-preset="rice">🍚 Sindh Rice</button>
+          <button type="button" class="chip" data-preset="cotton">☁️ Multan Cotton</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>🌡️ Farm & Environmental Data</h2>
+        <div class="fields">
+          <div class="f"><label>Farmer Name</label><input name="farmer" placeholder="e.g. Ali Khan"></div>
+          <div class="f"><label>City (for live weather)</label>
+            <div class="inline"><input name="city" id="city" placeholder="e.g. Lahore"><button type="button" class="btn-sm" id="fillWeather">🛰️</button></div></div>
+          <div class="f"><label>Crop</label><select name="crop_type">
+            <option value="0">🌾 Wheat</option><option value="1">🍚 Rice</option><option value="2">🌽 Maize</option>
+            <option value="3">☁️ Cotton</option><option value="4">🎋 Sugarcane</option></select></div>
+          <div class="f"><label>Crop Stage</label><select name="crop_stage">
+            <option value="0">Seedling</option><option value="1" selected>Vegetative</option>
+            <option value="2">Flowering</option><option value="3">Maturity</option></select></div>
+          <div class="f"><label>Temperature (°C)</label><input type="number" step="0.1" name="temperature" value="28"></div>
+          <div class="f"><label>Humidity (%)</label><input type="number" name="humidity" value="60"></div>
+          <div class="f"><label>Soil pH</label><input type="number" step="0.1" name="soil_ph" value="6.5"></div>
+          <div class="f"><label>Soil Moisture (%)</label><input type="number" name="soil_moisture" value="30"></div>
+          <div class="f"><label>Nitrogen (kg/ha)</label><input type="number" name="soil_n" value="150"></div>
+          <div class="f"><label>Phosphorus (kg/ha)</label><input type="number" name="soil_p" value="60"></div>
+          <div class="f"><label>Potassium (kg/ha)</label><input type="number" name="soil_k" value="200"></div>
+          <div class="f"><label>Seasonal Rainfall (mm)</label><input type="number" name="rainfall" value="800"></div>
+          <div class="f"><label>Rain Last 7 Days (mm)</label><input type="number" name="rain7" value="20"></div>
+          <div class="f"><label>Field Area (hectare)</label><input type="number" step="0.1" name="area" value="2"></div>
+          <div class="f full"><label>Market Price (Rs/tonne, optional)</label><input type="number" name="price" placeholder="Auto (default market rate)"></div>
+        </div>
+        <button type="submit" class="btn" id="analyzeBtn">🔍 Run Full AI Analysis</button>
+      </div>
+    </form>
+
+    <div id="results" class="hidden">
+      <div class="section-title"><h2>📋 Analysis Report</h2>
+        <a id="reportBtn" class="btn-outline" target="_blank">📄 Download PDF Report</a></div>
+
+      <div class="kpis">
+        <div class="kpi gauge-card">
+          <svg viewBox="0 0 120 120" class="gauge"><circle cx="60" cy="60" r="52" class="g-bg"/>
+            <circle cx="60" cy="60" r="52" class="g-arc" id="gaugeArc"/></svg>
+          <div class="g-text"><b id="gaugeVal">0%</b><small id="healthLabel">-</small></div>
+          <h4>Crop Health</h4>
+        </div>
+        <div class="kpi"><span class="k-ic">🦠</span><h4>Disease</h4><b id="kDisease">-</b><p id="kDiseaseSub"></p></div>
+        <div class="kpi"><span class="k-ic">💧</span><h4>Water Requirement</h4><b id="kWater">-</b><p id="kWaterSub"></p></div>
+        <div class="kpi"><span class="k-ic">📦</span><h4>Expected Yield</h4><b id="kYield">-</b><p id="kYieldSub"></p></div>
+        <div class="kpi"><span class="k-ic">💰</span><h4>Est. Revenue</h4><b id="kRevenue">-</b><p id="kRevenueSub"></p></div>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <h3>🔬 Disease Spot Detection (Heatmap)</h3>
+          <div class="compare">
+            <figure><img id="imgOrig" alt=""><figcaption>Original</figcaption></figure>
+            <figure><img id="imgHeat" alt=""><figcaption>Infected areas (red)</figcaption></figure>
+          </div>
+          <div class="aff"><span>Affected leaf area</span><b id="affected">0%</b></div>
+          <div class="bar"><div id="affBar"></div></div>
+        </div>
+        <div class="card">
+          <h3>📊 Disease Probability Distribution</h3>
+          <div class="chart-box"><canvas id="probChart"></canvas></div>
+        </div>
+      </div>
+
+      <div class="card" id="dInfo"></div>
+
+      <div class="card">
+        <div class="section-title"><h3>💧 7-Day Smart Irrigation Schedule</h3><span class="badge-soft" id="wxSource"></span></div>
+        <div class="grid-2 tight">
+          <div class="chart-box"><canvas id="irrChart"></canvas></div>
+          <div class="table-wrap"><table><thead><tr><th>Day</th><th>Weather</th><th>Rain</th><th>Need</th><th>Action</th></tr></thead>
+            <tbody id="irrTable"></tbody></table></div>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="card"><h3>🧪 Fertilizer Plan</h3><div id="fertBox"></div></div>
+        <div class="card"><h3>🌱 Best Crops For Your Soil</h3><div id="bestCrops"></div></div>
+      </div>
+
+      <div class="card"><h3>💡 Smart Recommendations</h3><div id="recList" class="recs"></div></div>
+    </div>
+  </section>
+
+  <!-- ===================== WEATHER ===================== -->
+  <section class="page" id="page-weather">
+    <div class="card search-row">
+      <input id="wxCity" placeholder="Enter city e.g. Lahore, Multan, Faisalabad" value="Lahore">
+      <button class="btn auto" id="wxBtn">🔎 Get Forecast</button>
+    </div>
+    <div id="wxWrap" class="hidden">
+      <div class="wx-now card" id="wxNow"></div>
+      <div class="wx-days" id="wxDays"></div>
+      <div class="grid-2">
+        <div class="card"><h3>📈 Temperature & Rain Trend</h3><div class="chart-box"><canvas id="wxChart"></canvas></div></div>
+        <div class="card"><h3>🧑‍🌾 Farming Advisory</h3><div id="wxAdvice" class="recs"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CROP ADVISOR ===================== -->
+  <section class="page" id="page-advisor">
+    <div class="grid-2">
+      <form class="card" id="advisorForm">
+        <h2>🌱 Soil & Climate Profile</h2>
+        <div class="fields">
+          <div class="f"><label>Nitrogen (kg/ha)</label><input type="number" name="n" value="120"></div>
+          <div class="f"><label>Phosphorus (kg/ha)</label><input type="number" name="p" value="60"></div>
+          <div class="f"><label>Potassium (kg/ha)</label><input type="number" name="k" value="50"></div>
+          <div class="f"><label>Soil pH</label><input type="number" step="0.1" name="ph" value="6.8"></div>
+          <div class="f"><label>Temperature (°C)</label><input type="number" step="0.1" name="temperature" value="21"></div>
+          <div class="f"><label>Humidity (%)</label><input type="number" name="humidity" value="55"></div>
+          <div class="f full"><label>Annual Rainfall (mm)</label><input type="number" name="rainfall" value="450"></div>
+        </div>
+        <button class="btn">🤖 Recommend Best Crop</button>
+      </form>
+      <div class="card"><h2>🏆 AI Recommendation</h2><div id="advisorOut" class="empty">Fill the form and click recommend.</div></div>
+    </div>
+  </section>
+
+  <!-- ===================== FERTILIZER ===================== -->
+  <section class="page" id="page-fertilizer">
+    <div class="grid-2">
+      <form class="card" id="fertForm">
+        <h2>🧪 Soil Test Values</h2>
+        <div class="fields">
+          <div class="f"><label>Crop</label><select name="crop_type">
+            <option value="0">🌾 Wheat</option><option value="1">🍚 Rice</option><option value="2">🌽 Maize</option>
+            <option value="3">☁️ Cotton</option><option value="4">🎋 Sugarcane</option></select></div>
+          <div class="f"><label>Field Area (hectare)</label><input type="number" step="0.1" name="area" value="2"></div>
+          <div class="f"><label>Available N (kg/ha)</label><input type="number" name="n" value="60"></div>
+          <div class="f"><label>Available P (kg/ha)</label><input type="number" name="p" value="25"></div>
+          <div class="f full"><label>Available K (kg/ha)</label><input type="number" name="k" value="40"></div>
+        </div>
+        <button class="btn">🧮 Calculate Fertilizer</button>
+      </form>
+      <div class="card"><h2>📦 Fertilizer Requirement</h2><div id="fertOut" class="empty">Enter soil values to calculate.</div></div>
+    </div>
+  </section>
+
+  <!-- ===================== HISTORY ===================== -->
+  <section class="page" id="page-history">
+    <div class="grid-2">
+      <div class="card"><h3>📈 Crop Health Trend</h3><div class="chart-box"><canvas id="trendChart"></canvas></div></div>
+      <div class="card"><h3>🦠 Disease Distribution</h3><div class="chart-box"><canvas id="distChart"></canvas></div></div>
+    </div>
+    <div class="card">
+      <h3>🗂️ All Analyses</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Image</th><th>Date</th><th>Farmer</th><th>Crop</th><th>Disease</th><th>Health</th><th>Yield</th><th>Revenue</th><th></th></tr></thead>
+        <tbody id="histTable"></tbody></table></div>
+    </div>
+  </section>
+
+  <!-- ===================== LIBRARY ===================== -->
+  <section class="page" id="page-library"><div class="lib" id="libGrid"></div></section>
+
+  <!-- ===================== ABOUT ===================== -->
+  <section class="page" id="page-about">
+    <div class="card">
+      <h2>🧠 AI Pipeline</h2>
+      <div class="pipeline">
+        <div>📷<b>Leaf Image</b></div><span>➜</span><div>🔬<b>Feature Extraction</b></div><span>➜</span>
+        <div>🦠<b>Disease Model</b></div><span>➜</span><div>🛰️<b>Weather API</b></div><span>➜</span>
+        <div>💧<b>Irrigation Model</b></div><span>➜</span><div>📦<b>Yield Model</b></div><span>➜</span><div>💡<b>Recommendations</b></div>
+      </div>
+    </div>
+    <div class="models" id="modelGrid"></div>
+    <div class="card"><h2>🛠️ Tech Stack</h2>
+      <div class="stack"><span>Python</span><span>Flask REST API</span><span>scikit-learn</span><span>NumPy</span><span>Pillow (CV)</span>
+      <span>SQLite</span><span>Chart.js</span><span>Open-Meteo API</span><span>HTML/CSS/JS</span></div></div>
+  </section>
+</div>
+
+<div id="loader">
+  <div class="loader-box">
+    <div class="spinner"></div>
+    <h3>AgriMind AI is analyzing...</h3>
+    <div class="step">📷 Processing image</div>
+    <div class="step">🦠 Detecting disease</div>
+    <div class="step">🛰️ Fetching weather</div>
+    <div class="step">💧 Planning irrigation</div>
+    <div class="step">📦 Predicting yield</div>
+  </div>
+</div>
+<div id="toasts"></div>
+<script src="/static/js/app.js"></script>
+<script src="/static/js/website.js"></script>
+<script src="/static/js/auth.js"></script>
+<script src="/static/js/developer.js"></script>
+<script src="/static/js/dev_admin.js"></script>
+</body>
+</html>
+
+
+
+

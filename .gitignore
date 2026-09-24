@@ -1,0 +1,21 @@
+﻿# Python
+venv/
+.venv/
+__pycache__/
+*.pyc
+
+# Secrets & private data (NEVER upload)
+secret.key
+*.db
+*.sqlite3
+.env
+
+# Generated / user files
+models/*.pkl
+uploads/*
+
+# Editor / OS
+.vscode/
+.idea/
+Thumbs.db
+desktop.ini

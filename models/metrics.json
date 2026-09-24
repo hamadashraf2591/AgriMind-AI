@@ -1,0 +1,38 @@
+{
+  "disease": {
+    "name": "Disease Classifier",
+    "algo": "Random Forest (250 trees)",
+    "metric": "Accuracy",
+    "value": "97.40%",
+    "samples": 2500,
+    "features": 8,
+    "inputs": "Hue, Saturation, Brightness, Green/Brown/Yellow ratio, Texture, Edge density"
+  },
+  "yield": {
+    "name": "Yield Predictor",
+    "algo": "Random Forest Regressor (250 trees)",
+    "metric": "R2 Score",
+    "value": "0.960",
+    "samples": 4000,
+    "features": 10,
+    "inputs": "pH, N, P, K, Rainfall, Temperature, Humidity, Crop, Disease probability, Area"
+  },
+  "irrigation": {
+    "name": "Irrigation Demand Model",
+    "algo": "Random Forest Regressor (200 trees)",
+    "metric": "R2 / MAE",
+    "value": "0.871 / 0.45 mm",
+    "samples": 3000,
+    "features": 5,
+    "inputs": "Temperature, Humidity, 7-day rain, Soil moisture, Crop stage"
+  },
+  "crop": {
+    "name": "Crop Recommender",
+    "algo": "Random Forest (200 trees)",
+    "metric": "Accuracy",
+    "value": "96.86%",
+    "samples": 3500,
+    "features": 7,
+    "inputs": "N, P, K, Temperature, Humidity, pH, Rainfall"
+  }
+}

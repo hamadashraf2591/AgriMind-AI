@@ -1,0 +1,141 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AgriMind AI · Login</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins','Segoe UI',sans-serif}
+body{min-height:100vh;display:grid;grid-template-columns:1.15fr 1fr;color:#fff;
+background:linear-gradient(100deg,rgba(3,20,11,.93) 0%,rgba(3,20,11,.6) 55%,rgba(3,20,11,.35) 100%),url(/static/img/hero.jpg) center/cover fixed,#052e1c}
+.left{padding:56px 64px;display:flex;flex-direction:column;justify-content:center;animation:up .9s ease}
+@keyframes up{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
+.brand{display:flex;align-items:center;gap:12px;font-size:1.3rem;font-weight:700;margin-bottom:44px}
+.logo{width:50px;height:50px;border-radius:14px;display:grid;place-items:center;font-size:26px;background:linear-gradient(135deg,#10b981,#065f46);box-shadow:0 8px 22px rgba(16,185,129,.4)}
+.brand small{display:block;font-size:.72rem;font-weight:400;color:#a7c4b2}
+.left h1{font-size:3rem;line-height:1.15;font-weight:800}
+.left h1 span{background:linear-gradient(90deg,#34d399,#a3e635);-webkit-background-clip:text;background-clip:text;color:transparent}
+.left>p{opacity:.85;margin:16px 0 30px;max-width:520px;line-height:1.75}
+.perk{display:flex;gap:14px;align-items:center;margin:12px 0;max-width:460px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);backdrop-filter:blur(10px);padding:12px 16px;border-radius:14px}
+.perk span{font-size:1.5rem}.perk b{display:block;font-size:.92rem}.perk small{color:#a7c4b2;font-size:.78rem}
+.right{display:grid;place-items:center;padding:30px}
+.box{width:100%;max-width:450px;background:rgba(8,24,15,.74);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.14);border-radius:26px;padding:34px;box-shadow:0 30px 70px rgba(0,0,0,.5);animation:up .9s ease .15s both}
+.box h2{font-size:1.5rem}.box>p{color:#a7c4b2;font-size:.85rem;margin:4px 0 20px}
+.tabs{display:grid;grid-template-columns:1fr 1fr;background:rgba(255,255,255,.06);border-radius:12px;padding:5px;margin-bottom:22px}
+.tabs button{border:none;background:none;color:#a7c4b2;padding:10px;border-radius:9px;font-weight:600;cursor:pointer;font-size:.9rem;transition:.25s}
+.tabs button.on{background:linear-gradient(135deg,#10b981,#047857);color:#fff;box-shadow:0 6px 16px rgba(16,185,129,.35)}
+form{display:none;flex-direction:column;gap:12px}form.on{display:flex;animation:up .4s ease}
+label{display:block;font-size:.75rem;color:#a7c4b2;margin-bottom:4px;font-weight:500}
+input,select{width:100%;padding:11px 13px;border-radius:11px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.06);color:#fff;font-size:.9rem;transition:.2s}
+input::placeholder{color:#7fa08c}
+input:focus,select:focus{outline:none;border-color:#34d399;box-shadow:0 0 0 3px rgba(52,211,153,.18)}
+select option{color:#111}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pw{position:relative}.pw span{position:absolute;right:12px;top:50%;transform:translateY(-50%);cursor:pointer;font-size:.95rem;user-select:none}
+.remember{display:flex;align-items:center;gap:8px;font-size:.82rem;color:#a7c4b2}.remember input{width:auto}
+.btn{margin-top:6px;padding:13px;border:none;border-radius:12px;font-weight:600;font-size:.95rem;color:#fff;cursor:pointer;background:linear-gradient(135deg,#10b981,#047857);box-shadow:0 10px 24px rgba(16,185,129,.35);transition:.2s}
+.btn:hover{transform:translateY(-2px)}.btn:disabled{opacity:.6;transform:none}
+.or{display:flex;align-items:center;gap:10px;color:#7fa08c;font-size:.78rem}.or::before,.or::after{content:"";flex:1;height:1px;background:rgba(255,255,255,.12)}
+.demo{padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.06);color:#fff;font-weight:600;cursor:pointer;font-size:.9rem;transition:.2s}
+.demo:hover{background:rgba(255,255,255,.14)}
+.err{display:none;background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.5);color:#fca5a5;padding:10px 12px;border-radius:10px;font-size:.84rem}
+.foot{text-align:center;color:#7fa08c;font-size:.75rem;margin-top:18px}
+@media(max-width:900px){body{grid-template-columns:1fr}.left{display:none}.box{padding:26px}}
+</style>
+</head>
+<body>
+<div class="left">
+  <div class="brand"><span class="logo">🌾</span><div>AgriMind AI<small>Smart Farming Intelligence</small></div></div>
+  <h1>Your Farm's <span>AI Assistant</span><br>Starts Here</h1>
+  <p>Create a free account to save every crop analysis, track field health over time and get personalised advice for your farm.</p>
+  <div class="perk"><span>🦠</span><div><b>Instant Disease Detection</b><small>Upload a leaf photo, get diagnosis in seconds</small></div></div>
+  <div class="perk"><span>🛰️</span><div><b>Live Weather + Irrigation Plan</b><small>7-day forecast based water schedule</small></div></div>
+  <div class="perk"><span>💰</span><div><b>Yield & Profit Prediction</b><small>Know your harvest and revenue in advance</small></div></div>
+</div>
+
+<div class="right">
+  <div class="box">
+    <h2>Welcome 👋</h2>
+    <p>Login or create your farmer account</p>
+    <div class="tabs"><button class="on" data-tab="loginForm">Login</button><button data-tab="signupForm">Sign Up</button></div>
+
+    <form id="loginForm" class="on">
+      <div class="err"></div>
+      <div><label>Username</label><input name="username" placeholder="e.g. alikhan" required autocomplete="username"></div>
+      <div><label>Password</label><div class="pw"><input type="password" name="password" placeholder="••••••••" required autocomplete="current-password"><span>👁️</span></div></div>
+      <label class="remember"><input type="checkbox" name="remember" checked> Remember me for 30 days</label>
+      <button class="btn">🔓 Login</button>
+      <div class="or">OR</div>
+      <button type="button" class="demo" id="demoBtn">🎮 Continue as Demo Farmer</button>
+    </form>
+
+    <form id="signupForm">
+      <div class="err"></div>
+      <div><label>Full Name</label><input name="name" placeholder="e.g. Ali Khan" required></div>
+      <div class="row">
+        <div><label>Username</label><input name="username" placeholder="alikhan" required autocomplete="username"></div>
+        <div><label>Phone (optional)</label><input name="phone" placeholder="03xx-xxxxxxx"></div>
+      </div>
+      <div class="row">
+        <div><label>Password</label><div class="pw"><input type="password" name="password" placeholder="min 6 chars" required autocomplete="new-password"><span>👁️</span></div></div>
+        <div><label>Confirm</label><div class="pw"><input type="password" name="confirm" placeholder="repeat" required autocomplete="new-password"><span>👁️</span></div></div>
+      </div>
+      <div class="row">
+        <div><label>City</label><input name="city" placeholder="e.g. Lahore"></div>
+        <div><label>Farm Area (ha)</label><input type="number" step="0.1" name="area" value="2"></div>
+      </div>
+      <div><label>Main Crop</label><select name="crop">
+        <option value="0">🌾 Wheat</option><option value="1">🍚 Rice</option><option value="2">🌽 Maize</option>
+        <option value="3">☁️ Cotton</option><option value="4">🎋 Sugarcane</option></select></div>
+      <button class="btn">🚀 Create Account</button>
+    </form>
+    <div class="foot">🔒 Passwords are securely hashed · AgriMind AI v2.0<br>Developed by <b style='color:#34d399'>Muhammad Hammad Ashraf</b></div>
+  </div>
+</div>
+
+<script>
+const $ = s => document.querySelector(s);
+document.querySelectorAll(".tabs button").forEach(b => b.onclick = () => {
+  document.querySelectorAll(".tabs button").forEach(x => x.classList.toggle("on", x === b));
+  document.querySelectorAll("form").forEach(f => f.classList.toggle("on", f.id === b.dataset.tab));
+});
+document.querySelectorAll(".pw span").forEach(s => s.onclick = () => {
+  const i = s.previousElementSibling;
+  i.type = i.type === "password" ? "text" : "password";
+  s.textContent = i.type === "password" ? "👁️" : "🙈";
+});
+async function send(url, body, form, btn) {
+  const err = form.querySelector(".err"), old = btn.textContent;
+  err.style.display = "none"; btn.disabled = true; btn.textContent = "⏳ Please wait...";
+  try {
+    const r = await fetch(url, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+    const d = await r.json();
+    if (!d.ok) throw new Error(d.error || "Something went wrong");
+    btn.textContent = "✅ Welcome " + (d.name || "") + "!";
+    setTimeout(() => location.href = "/", 500);
+  } catch (x) {
+    err.textContent = "⚠️ " + x.message; err.style.display = "block";
+    btn.disabled = false; btn.textContent = old;
+  }
+}
+$("#loginForm").onsubmit = e => {
+  e.preventDefault();
+  const f = Object.fromEntries(new FormData(e.target));
+  f.remember = e.target.remember.checked;
+  send("/auth/login", f, e.target, e.target.querySelector(".btn"));
+};
+$("#signupForm").onsubmit = e => {
+  e.preventDefault();
+  const f = Object.fromEntries(new FormData(e.target));
+  if (f.password !== f.confirm) {
+    const err = e.target.querySelector(".err");
+    err.textContent = "⚠️ Passwords do not match"; err.style.display = "block"; return;
+  }
+  send("/auth/signup", f, e.target, e.target.querySelector(".btn"));
+};
+$("#demoBtn").onclick = () => send("/auth/demo", {}, $("#loginForm"), $("#demoBtn"));
+</script>
+</body>
+</html>
+
